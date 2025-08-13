@@ -1,5 +1,5 @@
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200  // 600
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 25   // 10
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 25
 
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
@@ -18,8 +18,8 @@
 
 &msc {
     acceleration-exponent = <1>;
-    time-to-max-speed-ms = <100>;       // 300
-    delay-ms = <0>;                   // 0
+    time-to-max-speed-ms = <100>;
+    delay-ms = <0>;
 };
 &mmv {
     time-to-max-speed-ms = <500>;
@@ -40,9 +40,9 @@
             bindings = <
 &kp ESC     &kp N1     &kp N2        &kp N3        &kp N4  &kp N5       &kp UP_ARROW     &kp N6     &kp N7     &kp N8     &kp N9           &kp N0      &kp BACKSPACE
 &kp TAB     &kp Q      &kp W         &kp E         &kp R   &kp T        &kp DOWN_ARROW   &kp Y      &kp U      &kp I      &kp O            &kp P       &kp BSLH
-&kp CAPS    &kp A      &kp S         &kp D         &kp F   &kp G        &kp LEFT_ARROW   &kp H      &kp J      &kp K      &kp L            &kp SEMI    &kp APOS
-&kp LSHFT   &kp Z      &kp X         &kp C         &kp V   &kp B        &kp RIGHT_ARROW  &kp N      &kp M      &kp COMMA  &kp DOT          &kp FSLH    &kp ENTER
-&kp C_MUTE  &kp LCTRL  &kp SPACE     &kp LEFT_ALT  &mo 1   &kp SPACE    &kp ENTER        &kp ENTER  &kp BACKSPACE  &mo 2      &kp RIGHT_SHIFT  &kp DELETE
+&kp LSHFT   &kp A      &kp S         &kp D         &kp F   &kp G        &kp LEFT_ARROW   &kp H      &kp J      &kp K      &kp L            &kp SEMI    &kp APOS
+&kp LCTRL   &kp Z      &kp X         &kp C         &kp V   &kp B        &kp RIGHT_ARROW  &kp N      &kp M      &kp COMMA  &kp DOT          &kp DELETE  &kp EQUAL
+&kp LGUI    &kp CAPS   &kp SPACE     &kp SPACE     &mo 1   &kp SPACE    &kp ENTER        &kp BSPC   &kp ENTER  &kp MINUS    &kp LBRC         &kp RBRC
             >;
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOL_DN>;
             display-name = "LAYER0";
