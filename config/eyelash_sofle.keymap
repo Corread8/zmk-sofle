@@ -38,10 +38,15 @@
         compatible = "zmk,keymap";
         layer0 {
             bindings = <
+// Top row: ESC, 1-5 | 6-0, DEL (was backspace)
 &kp ESC   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5              &kp N6    &kp N7    &kp N8    &kp N9    &kp N0    &kp DEL
+// Upper row: Tab, QWERT | YUIOP, \
 &kp TAB   &kp Q     &kp W     &kp E     &kp R     &kp T    &trans     &kp Y     &kp U     &kp I     &kp O     &kp P     &kp BSLH
+// Home row: LSHIFT (was caps), ASDFG | HJKL;, '
 &kp LSHFT &kp A     &kp S     &kp D     &kp F     &kp G    &trans     &kp H     &kp J     &kp K     &kp L     &kp SEMI  &kp SQT
+// Bottom row: LCTRL (was lshift), ZXCVB | NM,./, EQUAL (was enter)
 &kp LCTRL &kp Z     &kp X     &kp C     &kp V     &kp B    &trans     &kp N     &kp M     &kp COMMA &kp DOT   &kp FSLH  &kp EQUAL
+// Thumb clusters: Left: WIN, CAPS, ALT, SPACE, SPACE | Right: BSPC, ENTER, MINUS, LBRC, RBRC
                   &kp LGUI  &kp CAPS  &kp LALT  &kp SPACE &kp SPACE   &kp BSPC  &kp ENTER &kp MINUS &kp LBRC  &kp RBRC
             >;
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOL_DN>;
@@ -50,34 +55,34 @@
 
         layer_1 {
             bindings = <
-&kp GRAVE &kp F1    &kp F2    &kp F3    &kp F4    &kp F5              &kp F6    &kp F7    &kp F8    &kp F9    &kp F10   &trans
+&kp GRAVE &kp F1    &kp F2    &kp F3    &kp F4    &kp F5              &kp F6    &kp F7    &kp F8    &kp F9    &kp F10   &kp F11
+&trans    &trans    &trans    &trans    &trans    &trans   &trans     &trans    &trans    &trans    &trans    &trans    &kp F12
 &trans    &trans    &trans    &trans    &trans    &trans   &trans     &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &trans    &trans    &trans    &trans    &trans   &trans     &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans   &trans     &trans    &trans    &trans    &trans    &trans    &trans
-                        &trans    &trans    &trans    &trans    &trans      &trans    &trans    &trans    &trans    &trans
+                    &trans    &trans    &trans    &trans   &trans     &trans    &trans    &trans    &trans    &trans
             >;
-
             display-name = "layer1";
             sensor-bindings = <&scroll_encoder>;
         };
+        
         layer_2 {
             bindings = <
 &trans    &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4         &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &bt BT_CLR   &bt BT_CLR_ALL &trans       &trans       &trans    &trans   &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &out OUT_USB &out OUT_BLE   &trans       &trans       &trans    &trans   &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &sys_reset   &bootloader    &trans       &trans       &trans    &trans   &trans    &trans    &trans    &trans    &trans    &trans
-                               &trans       &trans       &trans       &trans    &trans   &trans    &trans    &trans    &trans    &trans
+                       &trans         &trans       &trans       &trans    &trans   &trans    &trans    &trans    &trans    &trans
             >;
             sensor-bindings = <&scroll_encoder>;
         };
 
         layer_3 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans   &trans     &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans   &trans     &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans   &trans     &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans   &trans     &trans  &trans  &trans  &trans  &trans
             >;
         };
     };
