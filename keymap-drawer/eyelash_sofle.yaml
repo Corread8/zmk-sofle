@@ -51,7 +51,7 @@ layers:
   - H
   - {t: ',', s: <}
   - {t: ., s: '>'}
-  - '?'
+  - {t: /, s: '?'}
   - {t: '$$mdi:keyboard-return$$', type: enter}
   - $$mdi:volume-off$$
   - {t: LGUI, h: arrows}
@@ -165,9 +165,9 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:menu-left$$', s: '$$mdi:mouse$$'}
   - '!'
-  - {t: ACUTE, s: ACUTE}
+  - {t: '`', s: '~'}
   - {t: '$$mdi:transfer$$', type: trans}
-  - UUML
+  - {t: '`', s: '~'}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -325,8 +325,3 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-combos:
-- p: [50, 51]
-  k: Meh+Q
-- p: [50, 51]
-  k: Meh+W
