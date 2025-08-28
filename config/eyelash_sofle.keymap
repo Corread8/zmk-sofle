@@ -2,7 +2,7 @@ layer_2 {
             bindings = <
 &kp TILDE  &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &mmv MOVE_UP     &kp F6       &kp F7       &kp F8      &kp F9       &kp F10      &trans
 &trans     &bt BT_CLR    &bt BT_CLR_ALL  &trans        &trans        &trans          &mmv MOVE_DOWN   &kp EQUAL    &kp LPAR     &kp LBKT    &kp LBRC     &trans       &trans
-&trans     &out OUT_USB  &out OUT_BLE    &trans        &trans        &trans          &mmv MOVE_LEFT   &kp EXCL     &kp HASH     &kp AMPS    &acute_accent &trans       &trans
+&trans     &out OUT_USB  &out OUT_BLE    &trans        &trans        &trans          &mmv MOVE_LEFT   &kp EXCL     &kp HASH     &kp AMPS    &kp GRAVE    &trans       &trans
 &trans     &sys_reset    &trans          &bootloader   &trans        &trans          &mmv MOVE_RIGHT  &kp SQT      &kp MINUS    &kp LT      &kp QMARK    &bootloader  &trans
 &trans     &trans        &trans          &trans        &trans        &trans          &mkp LCLK        &trans       &trans       &trans      &trans       &trans
             >;
@@ -52,7 +52,7 @@ layer_2 {
         acute_accent: acute_accent {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp GRAVE>, <&kp TILDE>;  // ` and ~ as fallback
+            bindings = <&kp GRAVE>, <&kp TILDE>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
     };
