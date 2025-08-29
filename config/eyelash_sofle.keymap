@@ -1,14 +1,33 @@
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 25
+
+#include <input/processors.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.hh>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/outputs.h>
-#include <dt-bindings/zmk/pointing.h>
-#include <dt-bindings/zmk/modifiers.h> // Required for mod-morphs
+#include <dt-bindings/zmk/modifiers.h>
+
+&mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
+&msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
+
+&msc {
+    acceleration-exponent = <1>;
+    time-to-max-speed-ms = <100>;
+    delay-ms = <0>;
+};
+&mmv {
+    time-to-max-speed-ms = <500>;
+    acceleration-exponent = <1>;
+    trigger-period-ms = <16>;
+};
 
 / {
     behaviors {
-        // Mod-morph for M2+N: # (base) and @ (shifted)
         m_hash_at: m_hash_at {
             compatible = "zmk,behavior-mod-morph";
             label = "HASH_AT";
@@ -16,7 +35,6 @@
             bindings = <&kp HASH>, <&kp AT>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-        // Mod-morph for M2+E: & (base) and * (shifted)
         m_amps_star: m_amps_star {
             compatible = "zmk,behavior-mod-morph";
             label = "AMPS_STAR";
@@ -24,30 +42,34 @@
             bindings = <&kp AMPS>, <&kp STAR>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-        // Mod-morph for Base Layer ? key: ? (base) and ¿ (shifted)
         m_qmark_iqmark: m_qmark_iqmark {
             compatible = "zmk,behavior-mod-morph";
             label = "QMARK_IQMARK";
             #binding-cells = <0>;
-            bindings = <&kp QMARK>, <&kp RA(FSLH)>; // ? and AltGr+/ for ¿
+            bindings = <&kp QMARK>, <&kp RA(FSLH)>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-        // Mod-morph for M2+M: ! (base) and ¡ (shifted)
         m_excl_iexcl: m_excl_iexcl {
             compatible = "zmk,behavior-mod-morph";
             label = "EXCL_IEXCL";
             #binding-cells = <0>;
-            bindings = <&kp EXCL>, <&kp RA(N1)>; // ! and AltGr+1 for ¡
+            bindings = <&kp EXCL>, <&kp RA(N1)>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-         // Mod-morph for M2+. (period): ü (base) and ¡ (shifted) - As requested
         m_uuml_iexcl: m_uuml_iexcl {
             compatible = "zmk,behavior-mod-morph";
             label = "UUML_IEXCL";
             #binding-cells = <0>;
-            bindings = <&kp RA(Y)>, <&kp RA(N1)>; // AltGr+y for ü, AltGr+1 for ¡
+            bindings = <&kp RA(Y)>, <&kp RA(N1)>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
+    };
+
+    scroll_encoder: scroll_encoder {
+        compatible = "zmk,behavior-sensor-rotate";
+        #sensor-binding-cells = <0>;
+        bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+        tap-ms = <100>;
     };
 
     keymap {
@@ -61,21 +83,23 @@
 &kp LCTRL   &kp Z         &kp X         &kp C         &kp D       &kp V        &kp RIGHT_ARROW  &kp K          &kp H          &kp COMMA  &kp DOT          &m_qmark_iqmark    &kp ENTER
 &kp C_MUTE  &lt 3 LGUI    &lt 4 ENTER   &kp LEFT_ALT  &kp LSHFT   &kp SPACE    &kp ENTER        &kp BACKSPACE  &kp ENTER      &mo 2      &kp RIGHT_SHIFT  &kp DELETE
             >;
+            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOL_DN>;
             display-name = "LAYER0";
         };
 
         layer_1 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&kp GRAVE   &kp F1           &kp F2          &kp F3           &kp F4           &kp F5             &mmv MOVE_UP     &kp F6           &kp F7           &kp F8      &kp F9     &kp F10           &trans
+&trans      &kp GRAVE        &mkp LCLK       &mkp MCLK        &mkp RCLK        &mkp MB4           &mmv MOVE_DOWN   &kp PG_UP        &kp END          &kp UP      &kp HOME   &kp MINUS         &kp EQUAL
+&trans      &kp TILDE        &trans          &trans           &trans           &mkp MB5           &mmv MOVE_LEFT   &kp PG_DN        &kp LEFT         &kp DOWN    &kp RIGHT  &kp LEFT_BRACKET  &kp RIGHT_BRACKET
+&trans      &rgb_ug RGB_OFF  &rgb_ug RGB_ON  &rgb_ug RGB_EFF  &rgb_ug RGB_EFR  &rgb_ug RGB_SPI    &mmv MOVE_RIGHT  &rgb_ug RGB_BRI  &rgb_ug RGB_BRD  &kp INSERT  &kp F11    &kp F12           &trans
+&kp C_MUTE  &trans           &trans          &trans           &trans           &trans             &mkp LCLK        &trans           &trans           &trans      &trans     &trans
             >;
             display-name = "layer1";
+            sensor-bindings = <&scroll_encoder>;
         };
 
-        layer_2 { // Symbol Layer (Activated by M2)
+        layer_2 {
             bindings = <
 &trans  &trans      &trans        &trans       &trans       &trans          &trans  &trans           &trans        &trans       &trans       &trans      &trans
 &trans  &trans      &trans        &trans       &trans       &trans          &trans  &kp EQUAL        &kp LPAR      &kp LBRC     &kp LBKT     &trans      &trans
@@ -84,9 +108,10 @@
 &trans  &trans      &trans        &trans       &trans       &trans          &trans  &trans           &trans        &trans       &trans       &trans      &trans
             >;
             display-name = "symbols";
+            sensor-bindings = <&scroll_encoder>;
         };
 
-        layer_3 { // Arrow Layer (Activated by holding Windows Key)
+        layer_3 {
             bindings = <
 &trans  &trans      &trans        &trans        &trans       &trans          &trans  &trans           &trans        &trans       &trans      &trans      &trans
 &trans  &kp COMMA   &kp UP        &kp DOT       &trans       &trans          &trans  &trans           &trans        &trans       &trans      &trans      &trans
@@ -97,10 +122,10 @@
             display-name = "arrows";
         };
 
-        layer_4 { // Number Layer (Activated by holding Caps Lock position key)
+        layer_4 {
             bindings = <
 &trans  &trans      &trans        &trans        &trans       &trans          &trans  &trans           &trans        &trans       &trans      &trans      &trans
-&trans  &kp N1      &kp N2        &kp N3        &kp N4       &kp B           &trans  &trans           &trans        &trans       &trans      &trans      &trans
+&trans  &kp N1      &kp N2        &kp N3        &kp N4       &kp N5          &trans  &trans           &trans        &trans       &trans      &trans      &trans
 &trans  &kp N6      &kp N7        &kp N8        &kp N9       &kp N0          &trans  &trans           &trans        &trans       &trans      &trans      &trans
 &trans  &trans      &trans        &trans        &trans       &trans          &trans  &trans           &trans        &trans       &trans      &trans      &trans
 &trans  &trans      &trans        &trans        &trans       &trans          &trans  &trans           &trans        &trans       &trans      &trans
