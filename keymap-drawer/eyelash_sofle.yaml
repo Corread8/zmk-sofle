@@ -154,7 +154,7 @@ layers:
   - {t: '=', s: +}
   - (
   - )
-  - $
+  - ACUT
   - '%'
   - F12
   - {t: '$$mdi:transfer$$', type: trans}
