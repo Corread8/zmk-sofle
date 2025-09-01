@@ -13,7 +13,7 @@ layers:
   - {t: '8', s: '*'}
   - {t: '9', s: (}
   - {t: '0', s: )}
-  - $$mdi:backspace-reverse-outline$$
+  - $$mdi:apple-keyboard-command$$
   - $$mdi:keyboard-tab$$
   - Q
   - W
